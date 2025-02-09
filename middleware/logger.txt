@@ -1,0 +1,7 @@
+the route url is / and route method GET so taken time is 8ms
+the route url is /data and route method GET so taken time is 2ms
+the route url is /about and route method GET so taken time is 6ms
+the route url is /data and route method GET so taken time is 1ms
+the route url is /data and route method GET so taken time is 8ms
+the route url is /data and route method GET so taken time is 2ms
+the route url is /data and route method GET so taken time is 2ms

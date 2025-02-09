@@ -1,0 +1,142 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="body-container">
+        <div class="container">
+            <h1>URL Shortner</h1>
+            <form id="url-form">
+                <div class="url-box">
+                    <label for="input-url">Enter URL:</label>
+                    <input type="url" id="input-url" name="url" required>
+                </div>
+                <div class="url-box">
+                    <label for="input-short">Enter Shortner code:</label>
+                    <input type="text" id="input-short" name="short-url" required>
+                </div>
+                <button type="submit">Shortner</button>
+            </form>
+            <h2>Shortned URL's</h2>
+        </div>
+    </div>
+
+    <script>
+        const form = document.querySelector("#url-form")
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault()
+            // console.log("hiiii");
+            // console.log(event);
+            const formData = new FormData(event.target);
+            // console.log(formData);
+            const url = formData.get('url')
+            const shortcode = formData.get('short-url')
+            console.log(url, shortcode);
+            try {
+                const response = await fetch('/shortners', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json', // Important: Tell the server you're sending JSON
+                    },
+                    body: JSON.stringify({ url, shortcode }),
+
+                })
+                if (!response.ok) {
+                    const errorText = await response.text(); // Get the error message from the server
+                    throw new Error(errorText); // Throw the error to be caught
+
+                }
+                alert("successfuly !")
+                event.target.reset()
+                const data = await response.json(); // Parse the JSON response
+                console.log("Shortened URL:", data.shortUrl);
+
+            } catch (error) {
+                console.log(`Error : ${error}`);
+
+            }
+        })
+    </script>
+</body>
+
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="body-container">
+        <div class="container">
+            <h1>URL Shortener</h1>
+            <form id="url-form">
+                <div class="url-box">
+                    <label for="input-url">Enter URL:</label>
+                    <input type="url" id="input-url" name="url" required>
+                </div>
+                <div class="url-box">
+                    <label for="input-short">Enter Shortener Code (Optional):</label>
+                    <input type="text" id="input-short" name="short-url">
+                </div>
+                <button type="submit">Shorten</button>
+            </form>
+            <h2>Shortened URLs</h2>
+            <ul id="shortened-list"></ul> <!-- Fix 3: Added a list to display shortened URLs -->
+        </div>
+    </div>
+
+    <script>
+        const form = document.querySelector("#url-form");
+        const shortenedList = document.querySelector("#shortened-list");
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const url = formData.get('url');
+            const shortcode = formData.get('short-url');
+
+            try {
+                const response = await fetch('/shortners', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ url, shortcode }),
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(errorText);
+                }
+
+                const data = await response.json();
+                alert("Successfully shortened URL!");
+                event.target.reset();
+
+                // Fix 3: Display the shortened URL instead of just logging it
+                const listItem = document.createElement("li");
+                listItem.innerHTML = `<a href="${data.shortUrl}" target="_blank">${data.shortUrl}</a>`;
+                shortenedList.appendChild(listItem);
+
+            } catch (error) {
+                alert(`Error: ${error.message}`); // Fix 5: Display error to the user
+                console.error(`Error: ${error}`);
+            }
+        });
+    </script>
+</body>
+
+</html>

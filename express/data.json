@@ -1,0 +1,22 @@
+{
+    "student": [
+        {
+            "name": "milan",
+            "age": "21"
+        }
+    ],
+    "teacher": [
+        {
+            "name": "yugal",
+            "age": "20"
+        },
+        {
+            "name": "Aman",
+            "age": "21"
+        },
+        {
+            "name": "classic",
+            "age": "20"
+        }
+    ]
+}

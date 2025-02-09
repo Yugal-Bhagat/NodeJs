@@ -1,0 +1,10 @@
+db.user.find({gender:'Male'})
+db.user.find({id:{$mod:[2,0]}})
+db.user.find({native:"Japan"})
+db.user.find({gender:"Female" , native:"Japan"})
+db.user.find({age:{$gt:25}})
+db.user.find({age:{$lt:50}, native:"United States"})
+db.user.countDocuments({relocate_to:"France"})
+db.user.find({native:"United States",relocate_to:"Russia"}).sort({age:1})
+db.user.find().sort({family_members:1,age:-1})
+
