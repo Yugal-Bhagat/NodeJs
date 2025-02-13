@@ -4,7 +4,7 @@
   "main": "argvProcess.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon fileCreator.js"
+    "server": "nodemon weather.js"
   },
   "keywords": [],
   "author": "",
